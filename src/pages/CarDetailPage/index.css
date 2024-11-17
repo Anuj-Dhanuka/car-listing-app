@@ -1,0 +1,159 @@
+.car-detail-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f4f5f7;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  flex: 1;
+}
+
+.image-section {
+  width: 100%;
+  max-width: 800px;
+}
+
+.main-image {
+  width: 100%;
+  max-height: 50vh;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+
+.thumbnail {
+  width: 15%;
+  max-width: 100px;
+  height: auto;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: transform 0.2s ease;
+}
+
+.thumbnail:hover,
+.thumbnail.active {
+  transform: scale(1.05);
+  border: 2px solid #009ffd;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-image {
+    max-height: 40vh;
+  }
+
+  .thumbnail {
+    width: 20%;
+    max-width: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-image {
+    max-height: 30vh;
+  }
+
+  .thumbnail {
+    width: 25%;
+    max-width: 60px;
+  }
+}
+
+.thumbnail-gallery {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.thumbnail:hover,
+.thumbnail.active {
+  transform: scale(1.05);
+  border: 2px solid #009ffd;
+}
+
+.details-section {
+  width: 100%;
+  max-width: 800px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.title-edit-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.title-edit-container h1 {
+  font-size: 24px;
+  color: #2a2a72;
+}
+
+.edit-button-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+  align-self: flex-end;
+}
+
+
+.edit-button {
+  padding: 8px 16px;
+  background-color: #009ffd;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 0px;
+}
+
+.edit-button:hover {
+  background-color: #2a2a72;
+}
+
+.description {
+  color: #6c757d;
+  margin: 10px 0;
+}
+
+.car-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+
+@media (min-width: 768px) {
+  .content-container {
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .image-section,
+  .details-section {
+    flex: 1;
+    max-width: none;
+  }
+
+  .title-edit-container h1 {
+    font-size: 28px;
+  }
+}

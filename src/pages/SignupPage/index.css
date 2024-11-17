@@ -1,0 +1,172 @@
+/* index.css */
+.signup-page {
+  display: flex;
+  min-height: 100vh;
+  font-family: sans-serif;
+}
+
+.image-section {
+  flex: 1;
+  position: relative;
+}
+
+.car-image {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  filter: brightness(60%);
+}
+
+.form-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  min-height: 100vh;
+}
+
+.signup-card {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.brand-name {
+  font-size: 36px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.signup-description {
+  font-size: 16px;
+  color: #cccccc;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+.signup-form .form-group {
+  margin-bottom: 20px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 16px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.input-field::placeholder {
+  color: #e0e0e0;
+}
+
+.input-field:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.signup-button {
+  width: 100%;
+  padding: 14px 16px;
+  background: linear-gradient(to right, #2a2a72, #009ffd);
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.signup-button:hover {
+  background: linear-gradient(to right, #009ffd, #2a2a72);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.login-redirect {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #cccccc;
+}
+
+.login-link {
+  color: #66a6ff;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .signup-page {
+    flex-direction: column;
+  }
+
+  .image-section {
+    display: none;
+  }
+
+  .form-section {
+    background: url('../../assets/images/car-image2.png') no-repeat center center/cover;
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+
+  .signup-card {
+    max-width: 500px;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .brand-name {
+    font-size: 28px;
+  }
+
+  .signup-description {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .input-field {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .signup-button {
+    padding: 12px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 767px) {
+  .signup-page {
+    flex-direction: column;
+  }
+
+  .car-image {
+    display: none;
+  }
+
+  .form-section {
+    flex: 1;
+    width: 100%;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .signup-card {
+    padding: 30px 20px;
+    margin: 24px; 
+  }
+}

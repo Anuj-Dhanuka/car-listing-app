@@ -1,0 +1,13 @@
+.footer {
+    background-color: #222;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .footer-nav a {
+    color: #ffffff;
+    margin: 0 10px;
+    font-size: 14px;
+    text-decoration: none;
+  }
