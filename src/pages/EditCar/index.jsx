@@ -2,7 +2,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 // Styles
 import "./index.css";
@@ -36,11 +36,13 @@ const EditCar = () => {
   const [carType, setCarType] = useState(car.tags.car_type);
   const [company, setCompany] = useState(car.tags.company);
   const [dealer, setDealer] = useState(car.tags.dealer);
+  const [priceINR, setPriceINR] = useState(car.price);
   const [images, setImages] = useState(car?.images || []);
   const [errors, setErrors] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
-  const handleImageUpload = (event) => {
+  const handleImageUpload = async (event) => {
     const files = Array.from(event.target.files);
 
     const validImages = files.filter(
@@ -59,11 +61,46 @@ const EditCar = () => {
       return;
     }
 
-    setImages((prevImages) => [
-      ...prevImages,
-      ...validImages.map((file) => URL.createObjectURL(file)),
-    ]);
-    toast.success(`${validImages.length} image(s) uploaded successfully!`);
+    setIsUploading(true);
+
+    try {
+      const uploadedImageUrls = [];
+      for (const file of validImages) {
+        const data = new FormData();
+        data.append("file", file);
+        data.append("upload_preset", "myCloud");
+        data.append("cloud_name", "anuj-dhanuka");
+
+        const res = await fetch(
+          "https://api.cloudinary.com/v1_1/anuj-dhanuka/image/upload",
+          {
+            method: "POST",
+            body: data,
+          }
+        );
+
+        const cloudData = await res.json();
+
+        if (res.ok) {
+          uploadedImageUrls.push(cloudData.url);
+        } else {
+          console.error("Image upload failed:", cloudData.error.message);
+          toast.error(
+            `Failed to upload ${file.name}: ${cloudData.error.message}`
+          );
+        }
+      }
+
+      setImages((prevImages) => [...prevImages, ...uploadedImageUrls]);
+      toast.success(
+        `${uploadedImageUrls.length} image(s) uploaded successfully!`
+      );
+    } catch (error) {
+      console.error("Error uploading images:", error);
+      toast.error("An error occurred while uploading images.");
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   const handleImageRemove = (imageToRemove) => {
@@ -85,7 +122,14 @@ const EditCar = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title || !description || !carType || !company || !dealer) {
+    if (
+      !title ||
+      !description ||
+      !carType ||
+      !company ||
+      !dealer ||
+      !priceINR
+    ) {
       toast.error("Please fill out all fields.");
       setErrors("Please fill out all fields.");
       return;
@@ -105,7 +149,8 @@ const EditCar = () => {
         ...car,
         title,
         description,
-        images, // Images already include valid URLs or ObjectURLs
+        images,
+        price: priceINR,
         tags: { car_type: carType, company, dealer },
       };
 
@@ -178,13 +223,29 @@ const EditCar = () => {
               required
             />
 
+            <label>Price in INR</label>
+            <input
+              type="number"
+              value={priceINR}
+              onChange={(e) => setPriceINR(e.target.value)}
+              required
+            />
+
             <label>Upload Images (3 to 10)</label>
             <input
+              id="file-upload"
               type="file"
               accept="image/*"
               multiple
               onChange={handleImageUpload}
             />
+
+            {isUploading && (
+              <div className="edit-car-uploading-loader">
+                <span className="loader"></span>
+                <p>Uploading...</p>
+              </div>
+            )}
 
             <div className="edit-image-preview-container">
               {images.length > 0 &&
@@ -199,13 +260,12 @@ const EditCar = () => {
                       alt={`preview-${index}`}
                       className="edit-image-small-images"
                     />
-                    <button
-                      type="button"
-                      className="edit-image-remove-button"
+                    <span
+                      className="edit-car-remove-icon"
                       onClick={() => handleImageRemove(image)}
                     >
-                      Remove
-                    </button>
+                      ✖
+                    </span>
                   </div>
                 ))}
             </div>
@@ -215,7 +275,7 @@ const EditCar = () => {
             <button
               type="submit"
               className="edit-submit-button"
-              disabled={isSubmitting}
+              disabled={isSubmitting || isUploading}
             >
               {isSubmitting ? "Submitting..." : "Update Car"}
             </button>

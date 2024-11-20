@@ -100,8 +100,8 @@
 }
 
 .home-car-image {
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: 150px;
   object-fit: cover;
 }
 
@@ -112,7 +112,7 @@
   font-weight: bold;
 }
 
-.car-card p {
+.home-section-car-description {
   color: #6c757d;
   font-size: 14px;
   margin: 5px 0;
@@ -121,19 +121,27 @@
 
 .car-tags {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 10px;
 }
 
 .car-tags .tag {
-display: inline;
+  display: inline;
   background-color: #eef4fa;
   color: #2a2a72;
   font-size: 12px;
   font-weight: 500;
   padding: 5px 10px;
   border-radius: 15px;
+}
+
+.home-section-car-price {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #4caf50;
+  margin-top: 16px;
 }
 
 .view-button {
@@ -289,5 +297,3 @@ display: inline;
   font-size: 1.2rem;
   color: #333;
 }
-
-

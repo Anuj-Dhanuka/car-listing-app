@@ -2,158 +2,215 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #f4f5f7;
+  background: linear-gradient(135deg, #009ffd, #2a2a72);
+  font-family: "Poppins", sans-serif;
+  color: #ffffff;
+}
+
+.car-detail-navbar,
+.car-detail-footer {
+  width: 100%;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 .content-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card {
+  width: 90%;
+  max-width: 1000px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  flex: 1;
+  overflow: hidden;
+  transform: scale(1);
+  transition: transform 0.4s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
 }
 
 .image-section {
-  width: 100%;
-  max-width: 800px;
+  position: relative;
+  overflow: hidden;
+}
+
+.main-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .main-image {
-  width: 100%;
-  max-height: 50vh;
+  width: auto;
+  height: 400px;
   object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  transition: transform 0.4s ease;
+  padding: 36px;
 }
 
-.thumbnail {
-  width: 15%;
-  max-width: 100px;
-  height: auto;
-  object-fit: cover;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: transform 0.2s ease;
-}
-
-.thumbnail:hover,
-.thumbnail.active {
-  transform: scale(1.05);
-  border: 2px solid #009ffd;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .main-image {
-    max-height: 40vh;
-  }
-
-  .thumbnail {
-    width: 20%;
-    max-width: 80px;
-  }
-}
-
-@media (max-width: 480px) {
-  .main-image {
-    max-height: 30vh;
-  }
-
-  .thumbnail {
-    width: 25%;
-    max-width: 60px;
-  }
+.main-image:hover {
+  transform: scale(1.1);
 }
 
 .thumbnail-gallery {
   display: flex;
-  gap: 10px;
   justify-content: center;
-  margin-bottom: 20px;
+  gap: 12px;
+  padding: 15px 10px;
+  margin-top: -20px;
+  z-index: 10;
+}
+
+.thumbnail {
+  width: 70px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .thumbnail:hover,
 .thumbnail.active {
-  transform: scale(1.05);
-  border: 2px solid #009ffd;
+  transform: scale(1.1);
+  border-color: #ffffff;
 }
 
 .details-section {
-  width: 100%;
-  max-width: 800px;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 30px 40px;
+  color: #ffffff;
   display: flex;
   flex-direction: column;
+  gap: 15px;
 }
 
-.title-edit-container {
+.details-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.title-edit-container h1 {
-  font-size: 24px;
-  color: #2a2a72;
-}
-
-.edit-button-container {
-  display: flex;
-  gap: 10px;
   align-items: center;
-  justify-content: flex-end;
-  align-self: flex-end;
 }
 
+.details-header h1 {
+  font-size: 28px;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.edit-buttons {
+  display: flex;
+  gap: 15px;
+}
 
 .edit-button {
-  padding: 8px 16px;
-  background-color: #009ffd;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #ff512f, #f09819);
+  color: #ffffff;
   font-size: 14px;
-  margin-bottom: 0px;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0px 4px 15px rgba(255, 81, 47, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .edit-button:hover {
-  background-color: #2a2a72;
+  transform: translateY(-3px);
+  box-shadow: 0px 6px 20px rgba(255, 81, 47, 0.5);
 }
+
+.edit-button .button-icon {
+  font-size: 16px;
+}
+
+.edit-button.loading {
+  cursor: not-allowed;
+  background: #6c757d;
+  box-shadow: none;
+}
+
+.edit-button.loading .button-text {
+  margin-left: 8px;
+}
+
+.loader {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ffffff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 
 .description {
-  color: #6c757d;
-  margin: 10px 0;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
-.car-tags {
+.car-details {
   display: flex;
-  flex-direction: column;
-  gap: 5px;
-  font-size: 14px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-/* Responsive Design */
+.car-tag {
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border-radius: 25px;
+  font-size: 14px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
 
-@media (min-width: 768px) {
-  .content-container {
-    flex-direction: row;
-    justify-content: center;
-    gap: 20px;
+@media (max-width: 768px) {
+  .main-image {
+    height: 300px;
   }
 
-  .image-section,
-  .details-section {
-    flex: 1;
-    max-width: none;
+  .details-header h1 {
+    font-size: 22px;
   }
 
-  .title-edit-container h1 {
-    font-size: 28px;
+  .edit-button {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .description {
+    font-size: 14px;
+  }
+
+  .thumbnail {
+    width: 60px;
+    height: 40px;
   }
 }

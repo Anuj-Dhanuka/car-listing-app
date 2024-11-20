@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -25,11 +25,24 @@ const HomePage = () => {
   const userDetails = useSelector((state) => state.auth);
   const { userId } = userDetails;
   const cars = useSelector((state) => state.cars.cars);
-  const userCars = cars.filter((car) => car.userId === userId);
+  const userCars = useMemo(() => {
+    return cars.filter((car) => car.userId === userId);
+}, [cars, userId]);
 
   const [loading, setLoading] = useState(false);
-  const [searchKeyword, setSearchKeyword] = useState(""); // State for search input
+  const [searchKeyword, setSearchKeyword] = useState("");
   const [filteredCars, setFilteredCars] = useState(userCars);
+
+  const formatPrice = (price) => {
+    if (price >= 10000000) {
+      return `₹${(price / 10000000).toFixed(2)} Cr`;
+    } else if (price >= 100000) {
+      return `₹${(price / 100000).toFixed(2)} L`;
+    } else {
+      return `₹${price.toLocaleString()}`;
+    }
+  };
+  
 
   useEffect(() => {
     setLoading(true);
@@ -40,7 +53,7 @@ const HomePage = () => {
       } catch (error) {
         console.error("Error fetching cars:", error);
       } finally {
-        setLoading(false); // End loading
+        setLoading(false);
       }
     };
 
@@ -64,6 +77,13 @@ const HomePage = () => {
 
   const handleCarDetailsClick = (id) => {
     navigate(`/${ROUTES.CARDETAIL}/${id}`);
+  };
+
+  const truncateDescription = (description, maxLength) => {
+    if (description.length > maxLength) {
+      return `${description.substring(0, maxLength)}...`;
+    }
+    return description;
   };
 
   return (
@@ -110,12 +130,13 @@ const HomePage = () => {
                     />
                   </div>
                   <h3>{car.title}</h3>
-                  <p>{car.description}</p>
+                  <p className="home-section-car-description">{truncateDescription(car.description, 100)}</p>
                   <div className="car-tags">
                     <span className="tag">Type: {car.tags.car_type}</span>
                     <span className="tag">Company: {car.tags.company}</span>
                     <span className="tag">Dealer: {car.tags.dealer}</span>
                   </div>
+                  <p className="home-section-car-price">Price: {formatPrice(car.price) || "1,00,000"}</p>
                   <button
                     className="view-button"
                     onClick={() => handleCarDetailsClick(car.id)}
